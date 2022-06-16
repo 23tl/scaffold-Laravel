@@ -4,6 +4,7 @@
 namespace App\Models;
 
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -57,6 +58,34 @@ class BaseModel extends Model
      */
     public const DELETED_AT = 'deletedTime';
 
+    protected $casts = [
+        'createdTime' => 'datetime:Y/m/d H:i:s',
+        'updatedTime' => 'datetime:Y/m/d H:i:s',
+        'deletedTime' => 'datetime:Y/m/d H:i:s',
+    ];
+
+    /**
+     * @return void
+     */
+    public static function boot (): void
+    {
+        parent::boot();
+        self::creating(static function ($model) {
+            $attributes = $model->getAttributes();
+            $model->uuid = empty($attributes['uuid']) ? uuid() : $attributes['uuid'];
+        });
+    }
+
+    /**
+     * @param DateTimeInterface $date
+     *
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y/m/d H:i:s');
+    }
+
     /**
      * @param Builder $query
      * @param string  $column
@@ -68,4 +97,5 @@ class BaseModel extends Model
     {
         return $query->orderBy($column, $direction);
     }
+
 }

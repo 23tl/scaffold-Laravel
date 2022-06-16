@@ -20,7 +20,7 @@ if (!function_exists('get_client_ip')) {
      * 获取用户真实 IP
      * @return mixed|string|null
      */
-    function get_client_ip()
+    function get_client_ip(): mixed
     {
         $ip = 'unknown';
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -41,8 +41,18 @@ if (!function_exists('hide_phone')) {
      * @param $phone
      * @return array|string|string[]
      */
-    function hide_phone($phone)
+    function hide_phone($phone): array|string
     {
         return substr_replace($phone, '****', 3, 4);
     }
 }
+
+
+if (!function_exists('uuid')) {
+    // 创建 唯一 uuid
+    function uuid(): array|string
+    {
+        return str_replace(['.', '-', '_'], '', uniqid('', true));
+    }
+}
+
