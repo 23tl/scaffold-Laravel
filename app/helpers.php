@@ -1,23 +1,23 @@
 <?php
 
-if (!function_exists('generate_order_no')) {
+if (! function_exists('generate_order_no')) {
     /**
      * 生成16位订单号码
-     * @return string
      */
     function generate_order_no(): string
     {
-        return date('Ymd') . substr(
-                implode(null, array_map('ord', str_split(substr(uniqid('', true), 7, 13), 1))),
-                0,
-                8
-            );
+        return date('Ymd').substr(
+            implode(null, array_map('ord', str_split(substr(uniqid('', true), 7, 13), 1))),
+            0,
+            8
+        );
     }
 }
 
-if (!function_exists('get_client_ip')) {
+if (! function_exists('get_client_ip')) {
     /**
      * 获取用户真实 IP
+     *
      * @return mixed|string|null
      */
     function get_client_ip(): mixed
@@ -31,14 +31,15 @@ if (!function_exists('get_client_ip')) {
         } elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
+
         return $ip;
     }
 }
 
-if (!function_exists('hide_phone')) {
+if (! function_exists('hide_phone')) {
     /**
      * 隐藏手机号中间四位
-     * @param $phone
+     *
      * @return array|string|string[]
      */
     function hide_phone($phone): array|string
@@ -47,12 +48,10 @@ if (!function_exists('hide_phone')) {
     }
 }
 
-
-if (!function_exists('uuid')) {
+if (! function_exists('uuid')) {
     // 创建 唯一 uuid
     function uuid(): array|string
     {
         return str_replace(['.', '-', '_'], '', uniqid('', true));
     }
 }
-

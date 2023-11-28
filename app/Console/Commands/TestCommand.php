@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Facades\Logging\Log;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -27,6 +28,6 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        return 0;
+         return 0;
     }
 }

@@ -19,8 +19,6 @@ class Controller extends BaseController
 
     /**
      * Controller constructor.
-     *
-     * @param  Request  $request
      */
     public function __construct(Request $request)
     {

@@ -1,22 +1,18 @@
 <?php
 
-
 namespace App\Http\Middleware;
 
-use Closure;
-use stdClass;
-use App\Facades\Json\Json;
-use Illuminate\Http\Request;
 use App\Constants\ErrorConstant;
 use App\Exceptions\BaseException;
+use App\Facades\Json\Json;
+use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
+use stdClass;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Response
 {
-    /**
-     * @var
-     */
     public $timer;
 
     public function __construct()
@@ -33,7 +29,7 @@ class Response
             'message' => 'ok',
             'time' => $this->timer,
             'dateTime' => date('Y-m-d H:i:s', $this->timer),
-            'data' => new stdClass()
+            'data' => new stdClass(),
         ];
 
         $exception = $response->exception;
@@ -46,6 +42,7 @@ class Response
                 $data['code'] = $response->getStatusCode();
                 $data['message'] = ErrorConstant::HTTP_ERROR[$response->getStatusCode()] ?? HttpResponse::$statusTexts[$response->getStatusCode()];
                 $response->setContent($data);
+
                 return $response;
             }
 
@@ -56,22 +53,25 @@ class Response
                 $data['code'] = $exception->getCode();
                 $data['message'] = $exception->getMessage();
                 $response->setContent($data);
+
                 return $response;
             }
         } else {
             /**
              * 表单验证
              */
-            if ((int)$response->getStatusCode() === 422) {
+            if ((int) $response->getStatusCode() === 422) {
                 $data['message'] = HttpResponse::$statusTexts[$response->getStatusCode()];
                 $data['data'] = ['validators' => Json::decode($response->getContent())];
                 $response->setContent(Json::encode($data));
+
                 return $response;
             }
 
             $data['data'] = empty($response->original) ? new stdClass() : $response->original;
             $response->setContent($data);
         }
+
         return $response;
     }
 }

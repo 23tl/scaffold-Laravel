@@ -3,14 +3,13 @@
 namespace App\Rules;
 
 use App\Cache\CaptchaCache;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\DataAwareRule;
+use Illuminate\Contracts\Validation\Rule;
 
-class CaptchaCheck implements Rule, DataAwareRule
+class CaptchaCheck implements DataAwareRule, Rule
 {
     /**
      * 即将进行验证的所有数据
-     * @var array
      */
     protected array $data = [];
 
@@ -29,22 +28,20 @@ class CaptchaCheck implements Rule, DataAwareRule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
     public function passes($attribute, $value): bool
     {
-        if ((!$captcha = CaptchaCache::getCaptchaCacheKey($this->data['key'])) && ($captcha !== $value)) {
+        if ((! $captcha = CaptchaCache::getCaptchaCacheKey($this->data['key'])) && ($captcha !== $value)) {
             return false;
         }
 
         CaptchaCache::delCaptchaCacheKey($this->data['key']);
+
         return true;
     }
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {
@@ -53,7 +50,8 @@ class CaptchaCheck implements Rule, DataAwareRule
 
     /**
      * 设置即将进行验证的所有数据。
-     * @param array $data
+     *
+     * @param  array  $data
      * @return $this|CaptchaCheck
      */
     public function setData($data)

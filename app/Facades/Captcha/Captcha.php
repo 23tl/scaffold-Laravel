@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Facades\Captcha;
 
 use App\Modules\Captcha\Captcha as CaptchaModule;
@@ -9,9 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class Captcha
  *
- * @package App\Facades\Captcha
  * @method static store(int $length = 5, string $charset = 'abcdefghkmnprstuvwxyzABCDEFGHKMNPRSTUVWXYZ23456789')
- * @package App\Modules\Captcha\Captcha
  */
 class Captcha extends Facade
 {

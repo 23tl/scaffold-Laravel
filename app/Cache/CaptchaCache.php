@@ -5,7 +5,6 @@
 
 namespace App\Cache;
 
-
 class CaptchaCache extends BaseCache
 {
     // 设置图形验证码缓存key常量
@@ -13,8 +12,6 @@ class CaptchaCache extends BaseCache
 
     /**
      * 获取图形验证码缓存key
-     * @param string $key
-     * @return string
      */
     public static function getCaptchaCacheKey(string $key): string
     {
@@ -23,10 +20,6 @@ class CaptchaCache extends BaseCache
 
     /**
      * 设置图形验证码缓存key
-     * @param string $key
-     * @param string $value
-     * @param int $ttl
-     * @return bool
      */
     public static function setCaptchaCacheKey(string $key, string $value, int $ttl = self::FIVE_MINUTE): bool
     {
@@ -35,8 +28,6 @@ class CaptchaCache extends BaseCache
 
     /**
      * 删除图形验证码缓存key
-     * @param string $key
-     * @return bool
      */
     public static function delCaptchaCacheKey(string $key): bool
     {

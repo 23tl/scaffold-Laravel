@@ -1,20 +1,18 @@
 <?php
 
-
 namespace App\Models;
 
-
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 /**
  * App\Models\BaseModel
  *
  *
  * 属性声明
+ *
  * @method Builder|Model orderByDefault(string $column = 'id', string $direction = 'desc')
  *
  * @mixin Model
@@ -64,10 +62,7 @@ class BaseModel extends Model
         'deletedTime' => 'datetime:Y/m/d H:i:s',
     ];
 
-    /**
-     * @return void
-     */
-    public static function boot (): void
+    public static function boot(): void
     {
         parent::boot();
         self::creating(static function ($model) {
@@ -76,26 +71,13 @@ class BaseModel extends Model
         });
     }
 
-    /**
-     * @param DateTimeInterface $date
-     *
-     * @return string
-     */
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y/m/d H:i:s');
     }
 
-    /**
-     * @param Builder $query
-     * @param string  $column
-     * @param string  $direction
-     *
-     * @return Builder
-     */
     public function scopeOrderByDefault(Builder $query, string $column = 'id', string $direction = 'desc'): Builder
     {
         return $query->orderBy($column, $direction);
     }
-
 }

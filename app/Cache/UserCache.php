@@ -12,11 +12,9 @@ class UserCache extends BaseCache
     /**
      * 保存用户信息
      *
-     * @param string $token     用户 token
-     * @param string $userData  用户信息
-     * @param int    $ttl       缓存时间
-     *
-     * @return mixed
+     * @param  string  $token     用户 token
+     * @param  string  $userData  用户信息
+     * @param  int  $ttl       缓存时间
      */
     public static function setUserInfo(string $token, string $userData, int $ttl = self::WEEK): mixed
     {
@@ -26,13 +24,12 @@ class UserCache extends BaseCache
     /**
      * 返回用户信息
      *
-     * @param string $token 用户 token
-     *
-     * @return Collection
+     * @param  string  $token 用户 token
      */
     public static function getUserInfo(string $token): Collection
     {
         $userInfo = self::get(self::getKey(self::USER_KEY, $token));
+
         return collect(Json::decode($userInfo));
     }
 }

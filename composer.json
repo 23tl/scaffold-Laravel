@@ -7,19 +7,22 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
-        "fruitcake/laravel-cors": "^2.0",
+        "doctrine/dbal": "^3.0",
         "gregwar/captcha": "^1.1",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^9.0",
-        "laravel/tinker": "^2.5"
+        "laravel/framework": "^10.0",
+        "laravel/octane": "^2.1",
+        "laravel/tinker": "^2.5",
+        "fruitcake/laravel-cors": "^2.0"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.9.1",
+        "laravel/pint": "^1.13",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.3.3"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0",
+        "roave/security-advisories": "dev-latest",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "files": [
@@ -58,6 +61,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

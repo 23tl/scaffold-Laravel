@@ -1,14 +1,10 @@
 <?php
 
-
 namespace App\Modules\Json;
-
 
 class Json
 {
     /**
-     * @param $obj
-     *
      * @return false|string
      */
     public function encode($obj)
@@ -17,8 +13,6 @@ class Json
     }
 
     /**
-     * @param $str
-     *
      * @return array|mixed
      */
     public function decode($str)
@@ -26,6 +20,7 @@ class Json
         if (empty($str)) {
             return [];
         }
+
         return json_decode($str, true, 512);
     }
 }
