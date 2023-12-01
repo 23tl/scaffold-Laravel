@@ -13,7 +13,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Response
 {
-    public $timer;
+    public int $timer;
+
+    /**
+     * 排除路径
+     * @var array
+     */
+    public array $excludePaths = [];
 
     public function __construct()
     {
@@ -23,7 +29,12 @@ class Response
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
-
+        /**
+         * 排除指定路径
+         */
+        if ($this->excludePaths($request)) {
+            return $response;
+        }
         $data = [
             'code' => $response->getStatusCode(),
             'message' => 'ok',
@@ -41,7 +52,7 @@ class Response
             if ($exception instanceof HttpException) {
                 $data['code'] = $response->getStatusCode();
                 $data['message'] = ErrorConstant::HTTP_ERROR[$response->getStatusCode()] ?? HttpResponse::$statusTexts[$response->getStatusCode()];
-                $response->setContent($data);
+                $response->setContent(Json::encode($data));
 
                 return $response;
             }
@@ -52,7 +63,7 @@ class Response
             if ($exception instanceof BaseException) {
                 $data['code'] = $exception->getCode();
                 $data['message'] = $exception->getMessage();
-                $response->setContent($data);
+                $response->setContent(Json::encode($data));
 
                 return $response;
             }
@@ -69,9 +80,29 @@ class Response
             }
 
             $data['data'] = empty($response->original) ? new stdClass() : $response->original;
-            $response->setContent($data);
+            $response->setContent(Json::encode($data));
         }
 
         return $response;
+    }
+
+    /**
+     * 排除指定路由
+     * @param Request $request
+     * @return bool
+     */
+    private function excludePaths(Request $request): bool
+    {
+        foreach ($this->excludePaths as $except) {
+            if ($except !== '/') {
+                $except = trim($except, '/');
+            }
+
+            if ($request->fullUrlIs($except) || $request->is($except)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
