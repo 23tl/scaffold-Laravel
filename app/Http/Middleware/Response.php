@@ -17,7 +17,6 @@ class Response
 
     /**
      * 排除路径
-     * @var array
      */
     public array $excludePaths = [];
 
@@ -28,6 +27,7 @@ class Response
 
     public function handle(Request $request, Closure $next)
     {
+        $request->headers->set('Accept', 'application/json');
         $response = $next($request);
         /**
          * 排除指定路径
@@ -88,8 +88,6 @@ class Response
 
     /**
      * 排除指定路由
-     * @param Request $request
-     * @return bool
      */
     private function excludePaths(Request $request): bool
     {

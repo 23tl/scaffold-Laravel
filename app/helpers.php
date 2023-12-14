@@ -47,11 +47,3 @@ if (! function_exists('hide_phone')) {
         return substr_replace($phone, '****', 3, 4);
     }
 }
-
-if (! function_exists('uuid')) {
-    // 创建 唯一 uuid
-    function uuid(): array|string
-    {
-        return str_replace(['.', '-', '_'], '', uniqid('', true));
-    }
-}
