@@ -23,7 +23,7 @@ class CaptchaCache extends BaseCache
      */
     public static function setCaptchaCacheKey(string $key, string $value, int $ttl = self::FIVE_MINUTE): bool
     {
-        return self::set(self::getKey(self::CAPTCHA_CACHE_KEY, $key), $value, $ttl);
+        return self::setex(self::getKey(self::CAPTCHA_CACHE_KEY, $key), $value, $ttl);
     }
 
     /**

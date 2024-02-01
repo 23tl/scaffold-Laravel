@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Constants\ErrorConstant;
-use App\Exceptions\BaseException;
 use App\Facades\Json\Json;
 use Closure;
 use Illuminate\Http\Request;
@@ -60,7 +59,7 @@ class Response
             /**
              * 此处是为了处理自定义异常
              */
-            if ($exception instanceof BaseException) {
+            if ($exception instanceof \Exception) {
                 $data['code'] = $exception->getCode();
                 $data['message'] = $exception->getMessage();
                 $response->setContent(Json::encode($data));

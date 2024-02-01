@@ -2,9 +2,6 @@
 
 namespace App\Cache;
 
-use App\Facades\Json\Json;
-use Illuminate\Support\Collection;
-
 class UserCache extends BaseCache
 {
     public const USER_KEY = 'user_token_%s';
@@ -26,10 +23,8 @@ class UserCache extends BaseCache
      *
      * @param  string  $token 用户 token
      */
-    public static function getUserInfo(string $token): Collection
+    public static function getUserInfo(string $token): ?string
     {
         $userInfo = self::get(self::getKey(self::USER_KEY, $token));
-
-        return collect(Json::decode($userInfo));
     }
 }

@@ -32,7 +32,7 @@ class JsonLineFormatter extends LineFormatter
         $vars = (new NormalizerFormatter())->format($record);
         $vars['app'] = config('app.name');
         $vars['channel'] = $vars['context']['channel'] ?? 'local';
-        $vars['uuid'] = app('app')->uuid;
+        $vars['uuid'] = app('uuid');
         $vars['domain'] = $host;
         foreach ($vars['extra'] as $var => $val) {
             if (str_contains($output, '%extra.'.$var.'%')) {
