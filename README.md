@@ -9,7 +9,7 @@
 - **完整的业务层** - Logic、Service、Controller 三层架构
 - **API日志记录** - 自动记录API请求和响应日志
 - **插件管理系统** - 完整的插件生命周期管理
-- **现代化开发** - 基于 Laravel 11 最新特性
+- **现代化开发** - 基于 Laravel 12 最新特性
 
 ## 📁 项目结构
 
@@ -28,7 +28,6 @@ app/
 1. **安装依赖**
    ```bash
    composer install
-   npm install
    ```
 
 2. **环境配置**
@@ -53,7 +52,6 @@ app/
 
 插件位于 `app/Addons/` 目录下，每个插件包含：
 
-- `{PluginName}Plugin.php` - 插件主类
 - `routes.php` - 路由定义
 - `config.php` - 插件配置
 - 控制器、模型等业务文件
@@ -69,6 +67,7 @@ app/
 ```json
 {
   "code": 200,
+  "success": true,
   "message": "操作成功",
   "data": {},
   "timestamp": "2025-01-01 00:00:00"
